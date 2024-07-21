@@ -4,3 +4,6 @@
 [submodule "coordinator-ms"]
 	path = coordinator-ms
 	url = https://github.com/Assets-Backend/coordinator-ms.git
+[submodule "auth-ms"]
+	path = auth-ms
+	url = https://github.com/Assets-Backend/auth-ms.git
