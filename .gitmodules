@@ -7,3 +7,6 @@
 [submodule "auth-ms"]
 	path = auth-ms
 	url = https://github.com/Assets-Backend/auth-ms.git
+[submodule "professional-ms"]
+	path = professional-ms
+	url = https://github.com/Assets-Backend/professional-ms.git
