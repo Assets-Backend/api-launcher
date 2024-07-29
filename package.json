@@ -1,0 +1,11 @@
+{
+  "name": "api-launcher",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "docker": "docker volume rm api-launcher_postgresCoordinator api-launcher_postgresProfessional && docker-compose pull && docker-compose up -d"
+  }
+}

@@ -1,0 +1,115 @@
+version: '3'
+
+services:
+
+    nats-server:
+        container_name: nats_server
+        image: nats:latest
+        restart: always
+        ports:
+            - 8222:8222
+            - 4222:4222 # Expongo este puerto para poder usarlo de forma separada con los ms, pero si los ms estuviesen en este docker compose, no seria necesario 
+
+    # client-gateway:
+    #     container_name: client_gateway
+    #     image: client-gateway:${CLIENT_GATEWAY_VERSION}
+    #     ports:
+    #         - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
+    #     restart: always
+    #     environment:
+    #         - PORT=${CLIENT_GATEWAY_PORT}
+    #         - NATS_SERVERS=${NATS_SERVERS}
+
+    # auth-ms:
+    #     container_name: auth-ms
+    #     image: auth-ms:${AUTH_MS_VERSION}
+    #     restart: always
+    #     environment:
+    #         - PORT=${AUTH_MS_PORT}
+    #         - DATABASE_URL=${AUTH_MS_DATABASE_URL}
+    #         - NATS_SERVERS=${NATS_SERVERS}
+    #         - JWT_SECRET=${AUTH_JWT_SECRET}
+
+    # client-gateway:
+    #     container_name: client_gateway
+    #     image: nachodocker1714/assets-client-gateway:${CLIENT_GATEWAY_VERSION}
+    #     ports:
+    #         - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
+    #     restart: always
+    #     volumes:
+    #         - ./client-gateway/src:/usr/src/app/src
+    #     command: npm run start:dev
+    #     environment:
+    #         - PORT=${CLIENT_GATEWAY_PORT}
+    #         - NATS_SERVERS=${NATS_SERVERS}
+
+    # coordinator-ms:
+    #     container_name: coordinator-ms
+    #     image: nachodocker1714/assets-coordinator-ms:${COORDINATOR_MS_VERSION}
+    #     restart: always
+    #     depends_on:
+    #         - coordinator-db
+    #     volumes:
+    #         - ./coordinator-ms/src:/usr/src/app/src
+    #     command: npm run start:dev
+    #     environment:
+    #         - PORT=${COORDINATOR_MS_PORT}
+    #         - DATABASE_URL=${COORDINATOR_MS_DATABASE_URL}
+    #         - NATS_SERVERS=${NATS_SERVERS}
+
+    # coordinator-db:
+    #     container_name: coordinator-db
+    #     image: nachodocker1714/assets-coordinator-db:${COORDINATOR_DB_VERSION}
+    #     restart: always
+    #     volumes:
+    #         - postgresCoordinator:/var/lib/postgresql/data
+    #     ports:
+    #         - ${COORDINATOR_DB_PORT}:5432
+    #     environment:
+    #         - POSTGRES_USER=${COORDINATOR_DB_USER}
+    #         - POSTGRES_PASSWORD=${COORDINATOR_DB_PASSWORD}
+    #         - POSTGRES_DB=${COORDINATOR_DB_SCHEMA}
+
+    # professional-ms:
+    #     container_name: professional-ms
+    #     image: nachodocker1714/assets-professional-ms:${PROFESSIONAL_MS_VERSION}
+    #     restart: always
+    #     depends_on:
+    #         - professional-db
+    #     volumes:
+    #         - ./professional-ms/src:/usr/src/app/src
+    #     command: npm run start:dev
+    #     environment:
+    #         - PORT=${PROFESSIONAL_MS_PORT}
+    #         - DATABASE_URL=${PROFESSIONAL_MS_DATABASE_URL}
+    #         - NATS_SERVERS=${NATS_SERVERS}
+
+    # professional-db:
+    #     container_name: professional-db
+    #     image: nachodocker1714/assets-professional-db:${PROFESSIONAL_DB_VERSION}
+    #     restart: always
+    #     volumes:
+    #         - postgresProfessional:/var/lib/postgresql/data
+    #     ports:
+    #         - ${PROFESSIONAL_DB_PORT}:5432
+    #     environment:
+    #         - POSTGRES_USER=${PROFESSIONAL_DB_USER}
+    #         - POSTGRES_PASSWORD=${PROFESSIONAL_DB_PASSWORD}
+    #         - POSTGRES_DB=${PROFESSIONAL_DB_SCHEMA}
+
+    # auth-db:
+    #     container_name: auth-db
+    #     image: nachodocker1714/assets-auth-db:${AUTH_DB_VERSION}
+    #     restart: always
+    #     volumes:
+    #         - mongoAuth:/var/lib/postgresql/data
+    #     ports:
+    #         - ${AUTH_DB_PORT}:27017
+
+volumes:
+    postgresCoordinator:
+        external: false
+    # postgresProfessional:
+    #     external: false
+    mongoAuth:
+        external: false
