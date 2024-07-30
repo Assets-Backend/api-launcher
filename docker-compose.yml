@@ -20,6 +20,16 @@ services:
     #         - PORT=${CLIENT_GATEWAY_PORT}
     #         - NATS_SERVERS=${NATS_SERVERS}
 
+    auth-ms:
+        container_name: auth-ms
+        image: nachodocker1714/assets-auth-ms:${AUTH_MS_VERSION}
+        restart: always
+        environment:
+            - PORT=${AUTH_MS_PORT}
+            - DATABASE_URL=${AUTH_MS_DATABASE_URL}
+            - NATS_SERVERS=${NATS_SERVERS}
+            - JWT_SECRET=${AUTH_JWT_SECRET}
+
     # auth-ms:
     #     container_name: auth-ms
     #     image: auth-ms:${AUTH_MS_VERSION}
@@ -57,18 +67,18 @@ services:
     #         - DATABASE_URL=${COORDINATOR_MS_DATABASE_URL}
     #         - NATS_SERVERS=${NATS_SERVERS}
 
-    # coordinator-db:
-    #     container_name: coordinator-db
-    #     image: nachodocker1714/assets-coordinator-db:${COORDINATOR_DB_VERSION}
-    #     restart: always
-    #     volumes:
-    #         - postgresCoordinator:/var/lib/postgresql/data
-    #     ports:
-    #         - ${COORDINATOR_DB_PORT}:5432
-    #     environment:
-    #         - POSTGRES_USER=${COORDINATOR_DB_USER}
-    #         - POSTGRES_PASSWORD=${COORDINATOR_DB_PASSWORD}
-    #         - POSTGRES_DB=${COORDINATOR_DB_SCHEMA}
+    coordinator-db:
+        container_name: coordinator-db
+        image: nachodocker1714/assets-coordinator-db:${COORDINATOR_DB_VERSION}
+        restart: always
+        volumes:
+            - postgresCoordinator:/var/lib/postgresql/data
+        ports:
+            - ${COORDINATOR_DB_PORT}:5432
+        environment:
+            - POSTGRES_USER=${COORDINATOR_DB_USER}
+            - POSTGRES_PASSWORD=${COORDINATOR_DB_PASSWORD}
+            - POSTGRES_DB=${COORDINATOR_DB_SCHEMA}
 
     # professional-ms:
     #     container_name: professional-ms
@@ -111,5 +121,5 @@ volumes:
         external: false
     # postgresProfessional:
     #     external: false
-    mongoAuth:
-        external: false
+    # mongoAuth:
+    #     external: false
