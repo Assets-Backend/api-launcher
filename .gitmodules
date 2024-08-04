@@ -10,3 +10,6 @@
 [submodule "professional-ms"]
 	path = professional-ms
 	url = https://github.com/Assets-Backend/professional-ms.git
+[submodule "order-ms"]
+	path = order-ms
+	url = https://github.com/Assets-Backend/order-ms.git
