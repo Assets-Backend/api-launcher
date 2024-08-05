@@ -82,3 +82,16 @@
 ##### Query
 - `findTreatmentsByProfessional` - Obtener todas las relaciones de una empresa      - IMPLEMENTADO
 - `findTreatmentByProfessional` - Obtener el valor de una relacion de una empresa   - IMPLEMENTADO
+
+### ORDER-MS
+
+---
+#### Order
+##### Mutation
+- `createOrder` - Crear una orden para el coordinador
+- `updateOrder` - Actualizar informacion de la orden
+- `deleteOrder` - Elimina una orden
+
+##### Query
+- `findOrder` - Obtener una orden de un coordinador/profesional
+- `findOrders` - Obtener todas las ordenes de un coordinador/profesional
