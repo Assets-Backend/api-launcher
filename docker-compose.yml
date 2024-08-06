@@ -10,15 +10,15 @@ services:
             - 8222:8222
             - 4222:4222 # Expongo este puerto para poder usarlo de forma separada con los ms, pero si los ms estuviesen en este docker compose, no seria necesario 
 
-    client-gateway:
-        container_name: client_gateway
-        image: nachodocker1714/assets-client-gateway:${CLIENT_GATEWAY_VERSION}
-        ports:
-            - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
-        restart: always
-        environment:
-            - PORT=${CLIENT_GATEWAY_PORT}
-            - NATS_SERVERS=${NATS_SERVERS}
+    # client-gateway:
+    #     container_name: client_gateway
+    #     image: nachodocker1714/assets-client-gateway:${CLIENT_GATEWAY_VERSION}
+    #     ports:
+    #         - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
+    #     restart: always
+    #     environment:
+    #         - PORT=${CLIENT_GATEWAY_PORT}
+    #         - NATS_SERVERS=${NATS_SERVERS}
 
     auth-ms:
         container_name: auth-ms
@@ -67,14 +67,14 @@ services:
     #         - DATABASE_URL=${COORDINATOR_MS_DATABASE_URL}
     #         - NATS_SERVERS=${NATS_SERVERS}
 
-    coordinator-ms:
-        container_name: coordinator-ms
-        image: nachodocker1714/assets-coordinator-ms:${COORDINATOR_MS_VERSION}
-        restart: always
-        environment:
-            - PORT=${COORDINATOR_MS_PORT}
-            - DATABASE_URL=${COORDINATOR_MS_DATABASE_URL}
-            - NATS_SERVERS=${NATS_SERVERS}
+    # coordinator-ms:
+    #     container_name: coordinator-ms
+    #     image: nachodocker1714/assets-coordinator-ms:${COORDINATOR_MS_VERSION}
+    #     restart: always
+    #     environment:
+    #         - PORT=${COORDINATOR_MS_PORT}
+    #         - DATABASE_URL=${COORDINATOR_MS_DATABASE_URL}
+    #         - NATS_SERVERS=${NATS_SERVERS}
 
     coordinator-db:
         container_name: coordinator-db
@@ -101,6 +101,19 @@ services:
             - POSTGRES_USER=${ORDER_DB_USER}
             - POSTGRES_PASSWORD=${ORDER_DB_PASSWORD}
             - POSTGRES_DB=${ORDER_DB_SCHEMA}
+
+    community-db:
+        container_name: community-db
+        image: nachodocker1714/assets-community-db:${COMMUNITY_DB_VERSION}
+        restart: always
+        volumes:
+            - postgresCommunity:/var/lib/postgresql/data
+        ports:
+            - ${COMMUNITY_DB_PORT}:5432
+        environment:
+            - POSTGRES_USER=${COMMUNITY_DB_USER}
+            - POSTGRES_PASSWORD=${COMMUNITY_DB_PASSWORD}
+            - POSTGRES_DB=${COMMUNITY_DB_SCHEMA}
 
     # professional-ms:
     #     container_name: professional-ms
@@ -142,6 +155,8 @@ volumes:
     postgresCoordinator:
         external: false
     postgresOrder:
+        external: false
+    postgresCommunity:
         external: false
     # postgresProfessional:
     #     external: false
